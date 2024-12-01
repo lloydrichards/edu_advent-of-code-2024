@@ -2,7 +2,6 @@ package day01
 
 import (
 	"bufio"
-	"log"
 	"os"
 	"strconv"
 	"strings"
@@ -56,10 +55,17 @@ func sumNumbers(numbers []int) int {
 	return sum
 }
 
+func countInstances(numbers []int, id int) int {
+	count := 0
+	for _, num := range numbers {
+		if num == id {
+			count++
+		}
+	}
+	return count
+}
+
 func Part1(dir string) (int, error) {
-	log.Println("--Day 1: Historian Hysteria--")
-	log.Println("----Part 1----")
-	// Read the input file
 	file, err := os.Open(dir)
 	if err != nil {
 		return -1, err
@@ -73,7 +79,6 @@ func Part1(dir string) (int, error) {
 		return -1, err
 	}
 
-	// Sort the numbers
 	for idx, elf := range elfList {
 		elfList[idx] = sortNumbers(elf)
 	}
@@ -84,4 +89,27 @@ func Part1(dir string) (int, error) {
 	}
 
 	return sumNumbers(distances), nil
+}
+
+func Part2(dir string) (int, error) {
+	file, err := os.Open(dir)
+	if err != nil {
+		return -1, err
+	}
+	defer file.Close()
+
+	scanner := bufio.NewScanner(file)
+
+	elfList, err := parseInput(scanner)
+	if err != nil {
+		return -1, err
+	}
+
+	scores := []int{}
+	for _, id := range elfList[0] {
+		score := countInstances(elfList[1], id) * id
+		scores = append(scores, score)
+	}
+
+	return sumNumbers(scores), nil
 }
