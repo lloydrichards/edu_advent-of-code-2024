@@ -39,4 +39,21 @@ watch:
             fi; \
         fi
 
-.PHONY: all build run test clean watch
+# Watch and run tests continuously
+watch-test:
+	@if command -v entr > /dev/null; then \
+            find . -name '*.go' | entr -c go test ./... -v; \
+            echo "Watching tests...";\
+        else \
+            read -p "'entr' is not installed on your machine. Do you want to install it? [Y/n] " choice; \
+            if [ "$$choice" != "n" ] && [ "$$choice" != "N" ]; then \
+                brew install entr; \
+                find . -name '*.go' | entr -c go test ./... -v; \
+                echo "Watching tests...";\
+            else \
+                echo "You chose not to install entr. Exiting..."; \
+                exit 1; \
+            fi; \
+        fi
+
+.PHONY: all build run test clean watch watch-test

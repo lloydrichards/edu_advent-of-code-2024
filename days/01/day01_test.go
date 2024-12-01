@@ -2,6 +2,8 @@ package day01
 
 import (
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
 func TestDay1(t *testing.T) {
@@ -24,10 +26,7 @@ func TestDay1(t *testing.T) {
 				t.Errorf("%s error = %v", tt.name, err)
 				return
 			}
-			if result != tt.output {
-				t.Errorf("%s = %v, want %v", tt.name, result, tt.output)
-			}
-
+			assert.Equal(t, tt.output, result)
 		})
 	}
 }
