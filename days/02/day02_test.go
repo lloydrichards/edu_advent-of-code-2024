@@ -6,7 +6,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestDay1(t *testing.T) {
+func TestDay2(t *testing.T) {
 	tests := []struct {
 		name   string
 		input  string
@@ -14,6 +14,9 @@ func TestDay1(t *testing.T) {
 		output int
 	}{
 		{"Part 1: example", "data/example.txt", Part1, 2},
+		{"Part 1: input", "data/input.txt", Part1, 341},
+		{"Part 2: example", "data/example.txt", Part2, 4},
+		{"Part 2: input", "data/input.txt", Part2, 404},
 	}
 
 	for _, tt := range tests {

@@ -1,23 +1,25 @@
 package main
 
 import (
-	"log"
+	"fmt"
 
 	day01 "advent-of-code-2024/days/01"
 	day02 "advent-of-code-2024/days/02"
 )
 
 func main() {
-	log.Println("Welcome to the Advent of Code 2024")
+	fmt.Printf("🎄🎄🎄 Welcome to the Advent of Code 2024 🎄🎄🎄\n\n")
 
-	log.Println("--- Day 1: Historian Hysteria ---")
+	fmt.Println("--- Day 1: Historian Hysteria ---")
 	day1Part1, _ := day01.Part1("days/01/data/input.txt")
-	log.Printf("⭐️ Part 1: distance = %d", day1Part1)
+	fmt.Printf("⭐️ Part 1: distance = %d\n", day1Part1)
 	day1Part2, _ := day01.Part2("days/01/data/input.txt")
-	log.Printf("⭐️ Part 2: score = %d", day1Part2)
+	fmt.Printf("⭐️ Part 2: score = %d\n\n", day1Part2)
 
-	log.Println("--- Day 2: Red-Nosed Reports --- ")
+	fmt.Println("--- Day 2: Red-Nosed Reports --- ")
 	day2Part1, _ := day02.Part1("days/02/data/input.txt")
-	log.Printf("⭐️ Part 1: valid reports = %d", day2Part1)
+	fmt.Printf("⭐️ Part 1: reports = %d\n", day2Part1)
+	day2Part2, _ := day02.Part2("days/02/data/input.txt")
+	fmt.Printf("⭐️ Part 2: dampened reports = %d\n\n", day2Part2)
 
 }

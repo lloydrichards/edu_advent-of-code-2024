@@ -76,6 +76,35 @@ func Part1(dir string) (int, error) {
 	return validReports, nil
 }
 
+func remove(s []int, index int) []int {
+	ret := make([]int, 0)
+	ret = append(ret, s[:index]...)
+	return append(ret, s[index+1:]...)
+}
+
 func Part2(dir string) (int, error) {
-	return -1, nil
+	input, err := U.LoadInputFile(dir)
+	if err != nil {
+		return -1, err
+	}
+	reports, err := parseReports(input)
+	if err != nil {
+		return -1, err
+	}
+
+	validReports := 0
+	for _, report := range reports {
+		if isValidReport(report) {
+			validReports++
+			continue
+		}
+		for i := 0; i < len(report); i++ {
+			dampenedReport := remove(report, i)
+			if isValidReport(dampenedReport) {
+				validReports++
+				break
+			}
+		}
+	}
+	return validReports, nil
 }
