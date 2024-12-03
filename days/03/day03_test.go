@@ -15,6 +15,8 @@ func TestDay3(t *testing.T) {
 	}{
 		{"Part 1: example", "data/example.txt", Part1, 161},
 		{"Part 1: input", "data/input.txt", Part1, 190604937},
+		{"Part 1: example", "data/example-2.txt", Part2, 48},
+		{"Part 1: input", "data/input.txt", Part2, 82857512},
 	}
 
 	for _, tt := range tests {

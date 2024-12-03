@@ -26,5 +26,7 @@ func main() {
 	fmt.Println("--- Day 3: Mull It Over ---")
 	day3Part1, _ := day03.Part1("days/03/data/input.txt")
 	fmt.Printf("⭐️ Part 1: result = %d\n", day3Part1)
+	day3Part2, _ := day03.Part2("days/03/data/input.txt")
+	fmt.Printf("⭐️ Part 2: result = %d\n\n", day3Part2)
 
 }
