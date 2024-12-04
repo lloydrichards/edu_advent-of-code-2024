@@ -2,7 +2,6 @@ package day04
 
 import (
 	U "advent-of-code-2024/internal/utils"
-	"fmt"
 	"strings"
 )
 
@@ -12,20 +11,12 @@ type coord struct {
 }
 
 type Puzzle struct {
-	board [][]string
-	start []coord
+	startChar string
+	board     [][]string
+	start     []coord
 }
 
-func contains(slice []string, str string) bool {
-	for _, v := range slice {
-		if v == str {
-			return true
-		}
-	}
-	return false
-}
-
-func parsePuzzle(input string) Puzzle {
+func parsePuzzle(input string, startChar string) Puzzle {
 	lines := strings.Split(input, "\n")
 	board := [][]string{}
 	start := []coord{}
@@ -33,21 +24,28 @@ func parsePuzzle(input string) Puzzle {
 	for y, l := range lines {
 		row := []string{}
 		for x, c := range strings.Split(l, "") {
-			if c == "X" {
+			if c == startChar {
 				start = append(start, coord{x, y})
 			}
 			row = append(row, string(c))
 		}
 		board = append(board, row)
 	}
-	return Puzzle{board, start}
+	return Puzzle{startChar, board, start}
 }
 
-func (p *Puzzle) printBoard() {
-	for _, row := range p.board {
-		fmt.Println(row)
-	}
-}
+// func (p *Puzzle) printBoard() {
+// 	for _, row := range p.board {
+// 		for _, c := range row {
+// 			if c == p.startChar {
+// 				fmt.Print(c)
+// 				continue
+// 			}
+// 			fmt.Print(strings.ToLower(c))
+// 		}
+// 		fmt.Println()
+// 	}
+// }
 
 func (p *Puzzle) validPath(start coord, xOffset int, yOffset int) bool {
 	validChars := []string{"X", "M", "A", "S"}
@@ -92,7 +90,7 @@ func Part1(dir string) (int, error) {
 	if err != nil {
 		return -1, err
 	}
-	puzzle := parsePuzzle(input)
+	puzzle := parsePuzzle(input, "X")
 
 	// puzzle.printBoard()
 	matches := puzzle.findMatches()
@@ -100,7 +98,56 @@ func Part1(dir string) (int, error) {
 	return len(matches), nil
 }
 
-func Part2(dir string) (int, error) {
+func (p *Puzzle) validX(start coord) bool {
 
-	return -1, nil
+	validWord := 0
+
+	for y := -1; y <= 1; y++ {
+		for x := -1; x <= 1; x++ {
+			if x == 0 || y == 0 {
+				continue
+			}
+			if start.x < 1 || start.x >= len(p.board[0])-1 {
+				continue
+			}
+			if start.y < 1 || start.y >= len(p.board)-1 {
+				continue
+			}
+			if p.board[start.y+y][start.x+x] == "M" {
+				if p.board[start.y-y][start.x-x] == "S" {
+					validWord++
+
+				}
+			}
+
+		}
+	}
+
+	return validWord == 2
+
+}
+
+func (p *Puzzle) findXMAS() []coord {
+	matched := []coord{}
+	for _, s := range p.start {
+		if p.validX(s) {
+			matched = append(matched, s)
+		}
+
+	}
+	return matched
+}
+
+func Part2(dir string) (int, error) {
+	input, err := U.LoadInputFile(dir)
+	if err != nil {
+		return -1, err
+	}
+	puzzle := parsePuzzle(input, "A")
+
+	// puzzle.printBoard()
+
+	matches := puzzle.findXMAS()
+
+	return len(matches), nil
 }

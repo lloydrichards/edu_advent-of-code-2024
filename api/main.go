@@ -33,5 +33,7 @@ func main() {
 	fmt.Println("--- Day 4: Ceres Search ---")
 	day4Part1, _ := day04.Part1("days/04/data/input.txt")
 	fmt.Printf("⭐️ Part 1: matches = %d\n", day4Part1)
+	day4Part2, _ := day04.Part2("days/04/data/input.txt")
+	fmt.Printf("⭐️ Part 2: matches = %d\n\n", day4Part2)
 
 }
