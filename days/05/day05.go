@@ -66,14 +66,10 @@ func middleArray(arr []int) int {
 	return arr[len(arr)/2]
 }
 
-func Part1(dir string) (int, error) {
-	input, err := U.LoadInputFile(dir)
-	if err != nil {
-		return -1, err
-	}
-	rules, pages := parseInput(input)
+func eitherPages(rules []Rules, pages []Pages) ([]Pages, []Pages) {
 
 	validPages := []Pages{}
+	invalidPages := []Pages{}
 
 	for _, list := range pages {
 		pageIdxs := mapPageToIdx(list)
@@ -91,20 +87,89 @@ func Part1(dir string) (int, error) {
 		if isValid {
 			validPages = append(validPages, list)
 		}
+		if !isValid {
+			invalidPages = append(invalidPages, list)
+		}
 	}
+
+	return validPages, invalidPages
+}
+
+func Part1(dir string) (int, error) {
+	input, err := U.LoadInputFile(dir)
+	if err != nil {
+		return -1, err
+	}
+	rules, pages := parseInput(input)
+
+	valid, _ := eitherPages(rules, pages)
+
 	total := 0
-	for _, page := range validPages {
+	for _, page := range valid {
 		total += middleArray(page)
 	}
 
 	return total, nil
 }
 
+func shouldSwap(i, j int, rules []Rules) bool {
+	for _, rule := range rules {
+		if rule.Min == j && rule.Max == i {
+			return true
+		}
+	}
+	return false
+}
+
+func contains(pages Pages, page int) bool {
+	for _, p := range pages {
+		if p == page {
+			return true
+		}
+	}
+	return false
+}
+
+func sortPages(pages Pages, rules []Rules) Pages {
+	filteredRules := []Rules{}
+	for _, rule := range rules {
+		if contains(pages, rule.Min) && contains(pages, rule.Max) {
+			filteredRules = append(filteredRules, rule)
+		}
+	}
+
+	sorted := make([]int, len(pages))
+	copy(sorted, pages)
+
+	for i := 0; i < len(sorted)-1; i++ {
+		for j := 0; j < len(sorted)-i-1; j++ {
+			if shouldSwap(sorted[j], sorted[j+1], filteredRules) {
+				sorted[j], sorted[j+1] = sorted[j+1], sorted[j]
+			}
+		}
+	}
+	return sorted
+}
+
 func Part2(dir string) (int, error) {
-	_, err := U.LoadInputFile(dir)
+	input, err := U.LoadInputFile(dir)
 	if err != nil {
 		return -1, err
 	}
+	rules, pages := parseInput(input)
 
-	return -1, nil
+	_, brokenPages := eitherPages(rules, pages)
+
+	sortedPages := []Pages{}
+	for _, page := range brokenPages {
+		sorted := sortPages(page, rules)
+		sortedPages = append(sortedPages, sorted)
+	}
+
+	total := 0
+	for _, page := range sortedPages {
+		total += middleArray(page)
+	}
+
+	return total, nil
 }
