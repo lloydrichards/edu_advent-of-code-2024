@@ -37,7 +37,7 @@ func main() {
 	fmt.Printf("⭐️ Part 1: matches = %d\n", day04Part1)
 	day04Part2, _ := day04.Part2("days/04/data/input.txt")
 	fmt.Printf("⭐️ Part 2: matches = %d\n\n", day04Part2)
-	
+
 	fmt.Println("--- Day 5: Print Queue ---")
 	day05Part1, _ := day05.Part1("days/05/data/input.txt")
 	fmt.Printf("⭐️ Part 1: matches = %d\n", day05Part1)
@@ -47,5 +47,7 @@ func main() {
 	fmt.Println("--- Day 6: Guard Gallivant ---")
 	day06Part1, _ := day06.Part1("days/06/data/input.txt")
 	fmt.Printf("⭐️ Part 1: positions = %d\n", day06Part1)
+	day06Part2, _ := day06.Part2("days/06/data/input.txt")
+	fmt.Printf("⭐️ Part 2: new = %d\n\n", day06Part2)
 
 }
