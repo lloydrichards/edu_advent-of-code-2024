@@ -8,6 +8,7 @@ import (
 	day03 "advent-of-code-2024/days/03"
 	day04 "advent-of-code-2024/days/04"
 	day05 "advent-of-code-2024/days/05"
+	day06 "advent-of-code-2024/days/06"
 )
 
 func main() {
@@ -37,10 +38,14 @@ func main() {
 	day04Part2, _ := day04.Part2("days/04/data/input.txt")
 	fmt.Printf("⭐️ Part 2: matches = %d\n\n", day04Part2)
 	
-	fmt.Println("--- Day 4: Ceres Search ---")
+	fmt.Println("--- Day 5: Print Queue ---")
 	day05Part1, _ := day05.Part1("days/05/data/input.txt")
 	fmt.Printf("⭐️ Part 1: matches = %d\n", day05Part1)
 	day05Part2, _ := day05.Part2("days/05/data/input.txt")
 	fmt.Printf("⭐️ Part 2: matches = %d\n\n", day05Part2)
+
+	fmt.Println("--- Day 6: Guard Gallivant ---")
+	day06Part1, _ := day06.Part1("days/06/data/input.txt")
+	fmt.Printf("⭐️ Part 1: positions = %d\n", day06Part1)
 
 }
