@@ -53,8 +53,8 @@ func main() {
 
 	fmt.Println("--- Day 7: Bridge Repair ---")
 	day07Part1, _ := day07.Part1("days/07/data/input.txt")
-	fmt.Printf("⭐️ Part 1: positions = %d\n", day07Part1)
-	// day07Part2, _ := day07.Part2("days/07/data/input.txt")
-	// fmt.Printf("⭐️ Part 2: new = %d\n\n", day07Part2)
+	fmt.Printf("⭐️ Part 1: calibration = %d\n", day07Part1)
+	// day07Part2, _ := day07.Part2("days/07/data/input.txt") <- expensive
+	fmt.Printf("⭐️ Part 2: calibration = 38322057216320 (cache)\n\n")
 
 }

@@ -34,14 +34,19 @@ func parseTests(input string) []Test {
 	return tests
 }
 
-func generateCombinations(n int) [][]bool {
-	combinations := [][]bool{}
-	totalCombinations := 1 << n // 2^n combinations
+func generateCombinations(n int, base int) [][]int {
+	combinations := [][]int{}
+	totalCombinations := 1 // temp^n combinations
+	for i := 0; i < n; i++ {
+		totalCombinations *= base
+	}
 
 	for i := 0; i < totalCombinations; i++ {
-		combination := make([]bool, n)
+		combination := make([]int, n)
+		temp := i
 		for j := 0; j < n; j++ {
-			combination[j] = (i & (1 << j)) != 0
+			combination[j] = temp % base
+			temp /= base
 		}
 		combinations = append(combinations, combination)
 	}
@@ -49,14 +54,28 @@ func generateCombinations(n int) [][]bool {
 	return combinations
 }
 
-func solvablePredicate(target int, values []int) bool {
-	for _, combination := range generateCombinations(len(values) - 1) {
+func concatenateNumbers(a, b int) (int, error) {
+	strA := strconv.Itoa(a)
+	strB := strconv.Itoa(b)
+	concatenatedStr := strA + strB
+	concatenatedInt, err := strconv.Atoi(concatenatedStr)
+	if err != nil {
+		return 0, err
+	}
+	return concatenatedInt, nil
+}
+
+func solvablePredicate(target int, values []int, base int) bool {
+	for _, combination := range generateCombinations(len(values)-1, base) {
 		comboTotal := values[0]
 		for i, operation := range combination {
-			if operation {
+			if operation == 0 {
 				comboTotal += values[i+1]
-			} else {
+			} else if operation == 1 {
 				comboTotal *= values[i+1]
+			} else if operation == 2 {
+				newTotal, _ := concatenateNumbers(comboTotal, values[i+1])
+				comboTotal = newTotal
 			}
 		}
 
@@ -78,7 +97,7 @@ func Part1(dir string) (int, error) {
 	total := 0
 
 	for _, test := range tests {
-		isSolvable := solvablePredicate(test.name, test.values)
+		isSolvable := solvablePredicate(test.name, test.values, 2)
 		if isSolvable {
 			total += test.name
 		}
@@ -88,10 +107,21 @@ func Part1(dir string) (int, error) {
 }
 
 func Part2(dir string) (int, error) {
-	// input, err := U.LoadInputFile(dir)
-	// if err != nil {
-	// 	return -1, err
-	// }
+	input, err := U.LoadInputFile(dir)
+	if err != nil {
+		return -1, err
+	}
 
-	return -1, nil
+	tests := parseTests(input)
+
+	total := 0
+
+	for _, test := range tests {
+		isSolvable := solvablePredicate(test.name, test.values, 3)
+		if isSolvable {
+			total += test.name
+		}
+	}
+
+	return total, nil
 }
