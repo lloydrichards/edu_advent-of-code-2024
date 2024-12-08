@@ -61,7 +61,7 @@ func main() {
 	fmt.Println("--- Day 8: Resonant Collinearity ---")
 	day08Part1, _ := day08.Part1("days/08/data/input.txt")
 	fmt.Printf("⭐️ Part 1: antinodes = %d\n", day08Part1)
-	// day08Part2, _ := day08.Part2("days/08/data/input.txt") <- expensive
-	// fmt.Printf("⭐️ Part 2: calibration = 38322057216320 (cache)\n\n")
+	day08Part2, _ := day08.Part2("days/08/data/input.txt")
+	fmt.Printf("⭐️ Part 2: calibration = %d\n\n", day08Part2)
 
 }

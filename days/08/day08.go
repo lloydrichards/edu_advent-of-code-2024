@@ -102,6 +102,35 @@ func findAntiNodes(a Point, b Point) []Point {
 
 }
 
+func (m *AntennaMap) findHarmonicAntiNodes(a Point, b Point) []Point {
+	offset := a.offset(b)
+	antiNodes := []Point{}
+	newLeftAntiNode := a.add(offset)
+	leftOnMap := true
+	for leftOnMap {
+		if !m.isInMap(newLeftAntiNode) {
+			leftOnMap = false
+			break
+		}
+		antiNodes = append(antiNodes, newLeftAntiNode)
+		newLeftAntiNode = newLeftAntiNode.add(offset)
+	}
+
+	inverseOffset := offset.inverse()
+	newRightAntiNode := b.add(inverseOffset)
+	rightOnMap := true
+	for rightOnMap {
+		if !m.isInMap(newRightAntiNode) {
+			rightOnMap = false
+			break
+		}
+		antiNodes = append(antiNodes, newRightAntiNode)
+		newRightAntiNode = newRightAntiNode.add(inverseOffset)
+	}
+	return antiNodes
+
+}
+
 func Part1(dir string) (int, error) {
 	input, err := U.LoadInputFile(dir)
 	if err != nil {
@@ -130,10 +159,32 @@ func Part1(dir string) (int, error) {
 }
 
 func Part2(dir string) (int, error) {
-	// input, err := U.LoadInputFile(dir)
-	// if err != nil {
-	// 	return -1, err
-	// }
+	input, err := U.LoadInputFile(dir)
+	if err != nil {
+		return -1, err
+	}
 
-	return -1, nil
+	antennaMap := parseMap(input)
+
+	// antennaMap.print()
+
+	allPairs := antennaMap.findPairs()
+
+	uniqueAntiNodes := map[Point]bool{}
+	// allAntiNodes := []Point{}
+	for _, pair := range allPairs {
+		antiNodes := antennaMap.findHarmonicAntiNodes(pair[0], pair[1])
+		uniqueAntiNodes[pair[0]] = true
+		uniqueAntiNodes[pair[1]] = true
+		for _, antiNode := range antiNodes {
+			uniqueAntiNodes[antiNode] = true
+			// allAntiNodes = append(allAntiNodes, antiNode)
+
+		}
+
+	}
+
+	// antennaMap.printAntennas(allAntiNodes)
+
+	return len(uniqueAntiNodes), nil
 }
