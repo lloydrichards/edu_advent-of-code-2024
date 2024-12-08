@@ -10,6 +10,7 @@ import (
 	day05 "advent-of-code-2024/days/05"
 	day06 "advent-of-code-2024/days/06"
 	day07 "advent-of-code-2024/days/07"
+	day08 "advent-of-code-2024/days/08"
 )
 
 func main() {
@@ -56,5 +57,11 @@ func main() {
 	fmt.Printf("⭐️ Part 1: calibration = %d\n", day07Part1)
 	// day07Part2, _ := day07.Part2("days/07/data/input.txt") <- expensive
 	fmt.Printf("⭐️ Part 2: calibration = 38322057216320 (cache)\n\n")
+
+	fmt.Println("--- Day 8: Resonant Collinearity ---")
+	day08Part1, _ := day08.Part1("days/08/data/input.txt")
+	fmt.Printf("⭐️ Part 1: antinodes = %d\n", day08Part1)
+	// day08Part2, _ := day08.Part2("days/08/data/input.txt") <- expensive
+	// fmt.Printf("⭐️ Part 2: calibration = 38322057216320 (cache)\n\n")
 
 }

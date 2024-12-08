@@ -2,6 +2,7 @@ package utils
 
 import (
 	"os"
+	"strings"
 )
 
 func LoadInputFile(path string) (string, error) {
@@ -10,4 +11,8 @@ func LoadInputFile(path string) (string, error) {
 		return "", err
 	}
 	return string(buff), nil
+}
+
+func SplitByNewline(input string) []string {
+	return strings.Split(input, "\n")
 }
