@@ -1,4 +1,4 @@
-package day00
+package day09
 
 import (
 	U "advent-of-code-2024/internal/utils"

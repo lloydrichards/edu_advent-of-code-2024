@@ -1,4 +1,4 @@
-package day00
+package day09
 
 import (
 	"testing"
@@ -6,7 +6,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestDay00(t *testing.T) {
+func TestDay09(t *testing.T) {
 	tests := []struct {
 		name   string
 		input  string
