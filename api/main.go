@@ -68,5 +68,7 @@ func main() {
 	fmt.Println("--- Day 9: Disk Fragmenter ---")
 	day09Part1, _ := day09.Part1("days/09/data/input.txt")
 	fmt.Printf("⭐️ Part 1: checksum = %d\n", day09Part1)
+	// day09Part2, _ := day09.Part2("days/09/data/input.txt") <- expensive
+	fmt.Printf("⭐️ Part 2: calibration = 6321896265143 (cache)\n\n")
 
 }
