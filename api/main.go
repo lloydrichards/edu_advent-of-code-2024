@@ -11,6 +11,7 @@ import (
 	day06 "advent-of-code-2024/days/06"
 	day07 "advent-of-code-2024/days/07"
 	day08 "advent-of-code-2024/days/08"
+	day09 "advent-of-code-2024/days/09"
 )
 
 func main() {
@@ -63,5 +64,9 @@ func main() {
 	fmt.Printf("⭐️ Part 1: antinodes = %d\n", day08Part1)
 	day08Part2, _ := day08.Part2("days/08/data/input.txt")
 	fmt.Printf("⭐️ Part 2: calibration = %d\n\n", day08Part2)
+
+	fmt.Println("--- Day 9: Disk Fragmenter ---")
+	day09Part1, _ := day09.Part1("days/09/data/input.txt")
+	fmt.Printf("⭐️ Part 1: checksum = %d\n", day09Part1)
 
 }
