@@ -75,7 +75,7 @@ func main() {
 	fmt.Println("--- Day 10: Hoof It ---")
 	day10Part1, _ := day10.Part1("days/10/data/input.txt")
 	fmt.Printf("⭐️ Part 1: peaks = %d\n", day10Part1)
-	// day10Part2, _ := day10.Part2("days/10/data/input.txt") <- expensive
-	// fmt.Printf("⭐️ Part 2: calibration = 6321896265143 (cache)\n\n")
+	day10Part2, _ := day10.Part2("days/10/data/input.txt")
+	fmt.Printf("⭐️ Part 2: peaks = %d\n\n", day10Part2)
 
 }

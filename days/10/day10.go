@@ -150,10 +150,23 @@ func Part1(dir string) (int, error) {
 }
 
 func Part2(dir string) (int, error) {
-	// input, err := U.LoadInputFile(dir)
-	// if err != nil {
-	// 	return -1, err
-	// }
+	input, err := U.LoadInputFile(dir)
+	if err != nil {
+		return -1, err
+	}
 
-	return -1, nil
+	typography := parseTypography(input)
+
+	hikers := make(Hikers, len(typography.starts))
+	for i, start := range typography.starts {
+		hikers[i] = Hiker{curPos: start, path: []Point{start}}
+	}
+
+	finishedTrails := hikeTrail(typography, hikers, map[Point][]Trail{})
+
+	sum := 0
+	for _, paths := range finishedTrails {
+		sum += len(paths)
+	}
+	return sum, nil
 }
