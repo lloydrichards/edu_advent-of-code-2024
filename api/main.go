@@ -12,6 +12,7 @@ import (
 	day07 "advent-of-code-2024/days/07"
 	day08 "advent-of-code-2024/days/08"
 	day09 "advent-of-code-2024/days/09"
+	day10 "advent-of-code-2024/days/10"
 )
 
 func main() {
@@ -70,5 +71,11 @@ func main() {
 	fmt.Printf("⭐️ Part 1: checksum = %d\n", day09Part1)
 	// day09Part2, _ := day09.Part2("days/09/data/input.txt") <- expensive
 	fmt.Printf("⭐️ Part 2: calibration = 6321896265143 (cache)\n\n")
+
+	fmt.Println("--- Day 10: Hoof It ---")
+	day10Part1, _ := day10.Part1("days/10/data/input.txt")
+	fmt.Printf("⭐️ Part 1: peaks = %d\n", day10Part1)
+	// day10Part2, _ := day10.Part2("days/10/data/input.txt") <- expensive
+	// fmt.Printf("⭐️ Part 2: calibration = 6321896265143 (cache)\n\n")
 
 }
