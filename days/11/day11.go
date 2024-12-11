@@ -58,11 +58,40 @@ func Part1(dir string) (int, error) {
 	return len(stones), nil
 }
 
-func Part2(dir string) (int, error) {
-	// input, err := U.LoadInputFile(dir)
-	// if err != nil {
-	// 	return -1, err
-	// }
+func memoizedBlink(stoneMap map[Stone]int) map[Stone]int {
+	newStoneMap := map[Stone]int{}
+	for stone, count := range stoneMap {
+		str := strconv.Itoa(int(stone))
+		if stone == 0 {
+			newStoneMap[1] += count
+		} else if len(str)%2 == 0 {
+			firstHalf, _ := strconv.Atoi(str[:len(str)/2])
+			secondHalf, _ := strconv.Atoi(str[len(str)/2:])
+			newStoneMap[Stone(firstHalf)] += count
+			newStoneMap[Stone(secondHalf)] += count
+		} else {
+			newStoneMap[Stone(int(stone)*2024)] += count
+		}
+	}
+	return newStoneMap
+}
 
-	return -1, nil
+func Part2(dir string) (int, error) {
+	input, _ := U.LoadInputFile(dir)
+	stones := parseInput(input)
+
+	stoneMap := map[Stone]int{}
+	for _, stone := range stones {
+		stoneMap[stone]++
+	}
+
+	for i := 1; i <= 75; i++ {
+		stoneMap = memoizedBlink(stoneMap)
+	}
+
+	total := 0
+	for _, count := range stoneMap {
+		total += count
+	}
+	return total, nil
 }

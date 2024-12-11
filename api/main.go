@@ -82,5 +82,7 @@ func main() {
 	fmt.Println("--- Day 11: Plutonian Pebbles ---")
 	day11Part1, _ := day11.Part1("days/11/data/input.txt")
 	fmt.Printf("⭐️ Part 1: stones = %d\n", day11Part1)
+	day11Part2, _ := day11.Part2("days/11/data/input.txt")
+	fmt.Printf("⭐️ Part 2: stones = %d\n\n", day11Part2)
 
 }
