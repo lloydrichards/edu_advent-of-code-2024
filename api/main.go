@@ -13,6 +13,7 @@ import (
 	day08 "advent-of-code-2024/days/08"
 	day09 "advent-of-code-2024/days/09"
 	day10 "advent-of-code-2024/days/10"
+	day11 "advent-of-code-2024/days/11"
 )
 
 func main() {
@@ -77,5 +78,9 @@ func main() {
 	fmt.Printf("⭐️ Part 1: peaks = %d\n", day10Part1)
 	day10Part2, _ := day10.Part2("days/10/data/input.txt")
 	fmt.Printf("⭐️ Part 2: peaks = %d\n\n", day10Part2)
+
+	fmt.Println("--- Day 11: Plutonian Pebbles ---")
+	day11Part1, _ := day11.Part1("days/11/data/input.txt")
+	fmt.Printf("⭐️ Part 1: stones = %d\n", day11Part1)
 
 }
