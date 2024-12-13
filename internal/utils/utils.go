@@ -16,3 +16,8 @@ func LoadInputFile(path string) (string, error) {
 func SplitByNewline(input string) []string {
 	return strings.Split(input, "\n")
 }
+
+func GetGridSize(input string) (int, int) {
+	lines := SplitByNewline(input)
+	return len(strings.Split(lines[0], "")), len(lines)
+}
