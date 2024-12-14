@@ -174,11 +174,127 @@ func Part1(dir string) (int, error) {
 
 }
 
-func Part2(dir string) (int, error) {
-	// input, err := U.LoadInputFile(dir)
-	// if err != nil {
-	// 	return -1, err
-	// }
+func (r *Region) countCorners() int {
+	directions := [8][2]int{
+		{0, 1}, {1, 1}, {1, 0}, {1, -1}, {0, -1}, {-1, -1}, {-1, 0}, {-1, 1},
+	}
 
-	return -1, nil
+	outside := [][8]int{
+		{0, -1, 0, -1, -1, -1, -1, -1}, // top-right
+		{-1, -1, 0, -1, 0, -1, -1, -1}, // bottom-right
+		{-1, -1, -1, -1, 0, -1, 0, -1}, // bottom-left
+		{0, -1, -1, -1, -1, -1, 0, -1}, // top-left
+	}
+
+	inside := [][8]int{
+		{1, 0, 1, -1, -1, -1, -1, -1}, // top-right
+		{-1, -1, 1, 0, 1, -1, -1, -1}, // bottom-right
+		{-1, -1, -1, -1, 1, 0, 1, -1}, // bottom-left
+		{1, -1, -1, -1, -1, -1, 1, 0}, // top-left
+	}
+
+	// Create a map for quick lookup of filled points
+	pointSet := make(map[Plot]bool)
+	for _, p := range r.plots {
+		pointSet[p] = true
+	}
+
+	corners := 0
+
+	for _, plot := range r.plots {
+
+		surrounding := [8]int{}
+		for j, dir := range directions {
+			adj := Plot{plot[0] + dir[0], plot[1] + dir[1]}
+			if _, ok := pointSet[adj]; ok {
+				surrounding[j] = 1
+			} else {
+				surrounding[j] = 0
+			}
+		}
+
+		// check outside corners
+
+		for _, points := range outside {
+			isCorner := true
+			for j, point := range points {
+				if point == -1 {
+					continue
+				}
+				if surrounding[j] != point {
+					isCorner = false
+					break
+				}
+			}
+			if isCorner {
+				corners++
+			}
+		}
+
+		// check outside inside
+
+		for _, points := range inside {
+			isCorner := true
+			for j, point := range points {
+				if point == -1 {
+					continue
+				}
+				if surrounding[j] != point {
+					isCorner = false
+					break
+				}
+			}
+			if isCorner {
+				corners++
+			}
+		}
+
+	}
+
+	return corners
+}
+
+func (r *Region) calcBulkFenceCost() int {
+	corners := r.countCorners()
+	return corners * len(r.plots)
+}
+
+func Part2(dir string) (int, error) {
+	input, err := U.LoadInputFile(dir)
+	if err != nil {
+		return -1, err
+	}
+
+	// x, y := U.GetGridSize(input)
+
+	regions := parseRegions(input)
+
+	for i, region := range regions {
+		for j, other := range regions {
+			if i == j {
+				continue
+			}
+			if region.veg == other.veg {
+				if region.overlap(other) {
+					region.plots = uniquePlots(append(region.plots, other.plots...))
+					region.calcEdges()
+					regions[i] = region
+					regions[j] = Region{}
+				}
+			}
+		}
+	}
+
+	totalCost := 0
+	for _, region := range regions {
+		if len(region.plots) == 0 {
+			continue
+		}
+		fence := region.calcBulkFenceCost()
+		// fmt.Printf("Region %s: %d plots, %d corners %d fence\n", region.veg, len(region.plots), region.countCorners(), fence)
+		// region.print(x, y)
+		totalCost += fence
+	}
+
+	return totalCost, nil
 }
