@@ -34,7 +34,32 @@ func (c *ClawMachine) Play() ([2]int, error) {
 	return [2]int{-1, -1}, fmt.Errorf("no solution found")
 }
 
-func parseGames(input string) []ClawMachine {
+func (c *ClawMachine) PlayMath() ([2]int, error) {
+
+	// px = ax * a + bx * b
+	// py = ay * a + by * b
+
+	// a = (px - bx * b) / ax
+
+	// py = ay * ((px - bx * b) / ax) + by * b
+	// b = (py - ay * ((px - bx * b) / ax)) / by
+
+	// b = (py * ax - ay * px) / (by * ax - ay * bx)
+
+	bPress := (c.prize[1]*c.a.x - c.a.y*c.prize[0]) / (c.b.y*c.a.x - c.a.y*c.b.x)
+	aPress := (c.prize[0] - bPress*c.b.x) / c.a.x
+
+	totalX := aPress*c.a.x + bPress*c.b.x
+	totalY := aPress*c.a.y + bPress*c.b.y
+
+	if totalX == c.prize[0] && totalY == c.prize[1] {
+		return [2]int{aPress, bPress}, nil
+	}
+
+	return [2]int{-1, -1}, fmt.Errorf("no solution found")
+}
+
+func parseGames(input string, offset int) []ClawMachine {
 
 	gamesStr := strings.Split(input, "\n\n")
 	games := []ClawMachine{}
@@ -54,11 +79,13 @@ func parseGames(input string) []ClawMachine {
 		prize[0], _ = strconv.Atoi(nums[4])
 		prize[1], _ = strconv.Atoi(nums[5])
 
+		prize[0] += offset
+		prize[1] += offset
+
 		games = append(games, ClawMachine{a, b, prize})
 	}
 
 	return games
-
 }
 
 func Part1(dir string) (int, error) {
@@ -67,7 +94,7 @@ func Part1(dir string) (int, error) {
 		return -1, err
 	}
 
-	games := parseGames(input)
+	games := parseGames(input, 0)
 
 	tokens := 0
 	for _, game := range games {
@@ -83,10 +110,22 @@ func Part1(dir string) (int, error) {
 }
 
 func Part2(dir string) (int, error) {
-	// input, err := U.LoadInputFile(dir)
-	// if err != nil {
-	// 	return -1, err
-	// }
+	input, err := U.LoadInputFile(dir)
+	if err != nil {
+		return -1, err
+	}
 
-	return -1, nil
+	games := parseGames(input, 10000000000000)
+
+	tokens := 0
+	for _, game := range games {
+		result, err := game.PlayMath()
+		if err != nil {
+			continue
+		}
+		tokens += result[0]*3 + result[1]
+
+	}
+
+	return tokens, nil
 }
