@@ -16,6 +16,7 @@ import (
 	day11 "advent-of-code-2024/days/11"
 	day13 "advent-of-code-2024/days/13"
 	day14 "advent-of-code-2024/days/14"
+	day15 "advent-of-code-2024/days/15"
 )
 
 func main() {
@@ -105,4 +106,7 @@ func main() {
 	// day14Part2, _ := day14.Part2("days/14/data/input.txt", [2]int{101, 103}) <- expensive
 	fmt.Printf("⭐️ Part 2: steps = 8149 (cache)\n\n")
 
+	fmt.Println("--- Day 15: Warehouse Woes ---")
+	day15Part1, _ := day15.Part1("days/15/data/input.txt")
+	fmt.Printf("⭐️ Part 1: tokens = %d\n", day15Part1)
 }
