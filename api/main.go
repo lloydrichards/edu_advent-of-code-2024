@@ -101,8 +101,8 @@ func main() {
 
 	fmt.Println("--- Day 14: Restroom Redoubt ---")
 	day14Part1, _ := day14.Part1("days/14/data/input.txt", [2]int{101, 103})
-	fmt.Printf("⭐️ Part 1: tokens = %d\n", day14Part1)
-	// day14Part2, _ := day14.Part2("days/14/data/input.txt")
-	// fmt.Printf("⭐️ Part 2: stones = %d\n\n", day14Part2)
+	fmt.Printf("⭐️ Part 1: robots = %d\n", day14Part1)
+	// day14Part2, _ := day14.Part2("days/14/data/input.txt", [2]int{101, 103}) <- expensive
+	fmt.Printf("⭐️ Part 2: steps = 8149 (cache)\n\n")
 
 }

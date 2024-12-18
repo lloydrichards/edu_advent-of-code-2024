@@ -15,8 +15,8 @@ func TestDay14(t *testing.T) {
 		output int
 	}{
 		{"Part 1: example", "data/example.txt", Part1, [2]int{11, 7}, 12},
-		// {"Part 1: input", "data/input.txt", Part1, 2358},
-		// {"Part 2: example", "data/example.txt", Part2, 9},
+		{"Part 1: input", "data/input.txt", Part1, [2]int{101, 103}, 214400550},
+		// {"Part 2: example", "data/example.txt", Part2, [2]int{11, 7}, 9},
 		// {"Part 2: input", "data/input.txt", Part2, 1737},
 	}
 

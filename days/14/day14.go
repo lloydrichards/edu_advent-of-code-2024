@@ -3,6 +3,7 @@ package day14
 import (
 	U "advent-of-code-2024/internal/utils"
 	"fmt"
+	"math"
 	"regexp"
 	"strconv"
 )
@@ -86,6 +87,8 @@ func printRobots(robots []Robot, bounds [2]int) {
 			}
 			if found {
 				fmt.Print("X")
+			} else if x == bounds[0]/2 {
+				fmt.Print(" ")
 			} else {
 				fmt.Print(".")
 			}
@@ -146,11 +149,44 @@ func Part1(dir string, bounds [2]int) (int, error) {
 	return total, nil
 }
 
-func Part2(dir string) (int, error) {
-	// input, err := U.LoadInputFile(dir)
-	// if err != nil {
-	// 	return -1, err
-	// }
+func Part2(dir string, bounds [2]int) (int, error) {
+	input, err := U.LoadInputFile(dir)
+	if err != nil {
+		return -1, err
+	}
 
-	return -1, nil
+	robots := parseRobots(input, bounds)
+
+	best := math.MaxInt
+	bestStep := 0
+	steps := 5000
+	for steps < 10000 {
+		afterRobots := []Robot{}
+		for _, robot := range robots {
+			robot.step(steps)
+			afterRobots = append(afterRobots, robot)
+		}
+
+		quads := make(map[int]int)
+		for _, robot := range afterRobots {
+			quad := robot.getQuad()
+			if quad == -1 {
+				continue
+			}
+			quads[quad]++
+		}
+
+		// printRobots(afterRobots, bounds)
+		total := 1
+
+		for _, v := range quads {
+			total *= v
+		}
+		if total < best {
+			best = total
+			bestStep = steps
+		}
+		steps++
+	}
+	return bestStep, nil
 }
