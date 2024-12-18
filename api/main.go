@@ -108,5 +108,7 @@ func main() {
 
 	fmt.Println("--- Day 15: Warehouse Woes ---")
 	day15Part1, _ := day15.Part1("days/15/data/input.txt")
-	fmt.Printf("⭐️ Part 1: tokens = %d\n", day15Part1)
+	fmt.Printf("⭐️ Part 1: sum = %d\n", day15Part1)
+	day15Part2, _ := day15.Part2("days/15/data/input.txt")
+	fmt.Printf("⭐️ Part 2: sum = %d\n\n", day15Part2)
 }
