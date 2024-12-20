@@ -123,6 +123,6 @@ func main() {
 	fmt.Println("--- Day 17: Chronospatial Computer ---")
 	day17Part1, _ := day17.Part1("days/17/data/input.txt")
 	fmt.Printf("⭐️ Part 1: out = %s\n", day17Part1)
-	// day17Part2, _ := day17.Part2("days/17/data/input.txt")
-	// fmt.Printf("⭐️ Part 2: sum = %d\n\n", day17Part2)
+	day17Part2, _ := day17.Part2("days/17/data/input.txt")
+	fmt.Printf("⭐️ Part 2: a = %d\n\n", day17Part2)
 }

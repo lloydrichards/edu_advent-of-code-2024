@@ -2,6 +2,7 @@ package day17
 
 import (
 	U "advent-of-code-2024/internal/utils"
+	"fmt"
 	"regexp"
 	"strconv"
 	"strings"
@@ -101,11 +102,57 @@ func Part1(dir string) (string, error) {
 	return output, nil
 }
 
-func Part2(dir string) (int, error) {
-	// input, err := U.LoadInputFile(dir)
-	// if err != nil {
-	// 	return -1, err
-	// }
+func (p *Program) reverseEngineer(program []int, ans int) (int, error) {
 
-	return -1, nil
+	if len(program) == 0 {
+		return ans, nil
+	}
+
+	list := make([]int, 8)
+
+	// b = a % 8       <- 2,4
+	// b = b ^ 1       <- 1,1
+	// c = a >> b      <- 7,5
+	// b = b ^ 5       <- 1,5
+	// b = b ^ c       <- 4,3
+
+	// out = b % 8     <- 5,5
+	// a = a << 3      <- 0,3
+	// if a == 0: loop <- 3,0
+
+	for bit := range list {
+		p.a = (ans << 3) + bit
+
+		p.b = p.a % 8    // <- 2,4
+		p.b = p.b ^ 1    // <- 1,1
+		p.c = p.a >> p.b // <- 7,5
+		p.b = p.b ^ 5    // <- 1,5
+		p.b = p.b ^ p.c  // <- 4,3
+
+		if p.b%8 == program[len(program)-1] {
+			valid, err := p.reverseEngineer(program[:len(program)-1], p.a)
+			if err != nil {
+				continue
+			}
+			return valid, nil
+		}
+
+	}
+	return -1, fmt.Errorf("no valid answer")
+
+}
+
+func Part2(dir string) (int, error) {
+	input, err := U.LoadInputFile(dir)
+	if err != nil {
+		return -1, err
+	}
+	program := parseProgram(input)
+
+	ans, err := program.reverseEngineer(program.instructions, 0)
+	if err != nil {
+		return -1, err
+	}
+
+	return ans, nil
 }
