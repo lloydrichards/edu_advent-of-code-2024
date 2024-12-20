@@ -18,6 +18,7 @@ import (
 	day14 "advent-of-code-2024/days/14"
 	day15 "advent-of-code-2024/days/15"
 	day16 "advent-of-code-2024/days/16"
+	day17 "advent-of-code-2024/days/17"
 )
 
 func main() {
@@ -115,7 +116,13 @@ func main() {
 
 	fmt.Println("--- Day 16: Reindeer Maze ---")
 	day16Part1, _ := day16.Part1("days/16/data/input.txt")
-	fmt.Printf("⛔️ Part 1: score = %d\n", day16Part1)
+	fmt.Printf("⛔️ Part 1: score = %d\n\n", day16Part1)
 	// day16Part2, _ := day16.Part2("days/16/data/input.txt")
 	// fmt.Printf("⭐️ Part 2: sum = %d\n\n", day16Part2)
+
+	fmt.Println("--- Day 17: Chronospatial Computer ---")
+	day17Part1, _ := day17.Part1("days/17/data/input.txt")
+	fmt.Printf("⭐️ Part 1: out = %s\n", day17Part1)
+	// day17Part2, _ := day17.Part2("days/17/data/input.txt")
+	// fmt.Printf("⭐️ Part 2: sum = %d\n\n", day17Part2)
 }
